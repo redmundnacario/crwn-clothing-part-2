@@ -1,45 +1,52 @@
-import { connect } from 'react-redux'
+import { useDispatch } from "react-redux";
+import {
+    addItem,
+    removeItem,
+    clearItemFromCart,
+} from "../../redux/cart/cart.actions";
 
-import { addItem, 
-         removeItem,
-         clearItemFromCart } from '../../redux/cart/cart.actions';
+import PropTypes from "prop-types";
 
-import './checkout-item.component.scss';
+import "./checkout-item.component.scss";
 
-const CheckoutItem = ({cartItem, addItem, removeItem, clearItemFromCart}) => {
+const CheckoutItem = ({ cartItem }) => {
     const { name, imageUrl, price, quantity } = cartItem;
+    const dispatch = useDispatch();
+
     return (
-        <div className='checkout-item'>
+        <div className="checkout-item">
             <div className="image-container">
                 <img src={imageUrl} alt="item" />
             </div>
-            <span className='name'>{name}</span>
-            <span className='quantity'>
-                <div className='arrow' 
-                    onClick={() => removeItem(cartItem)}>
+            <span className="name">{name}</span>
+            <span className="quantity">
+                <div
+                    className="arrow"
+                    onClick={() => dispatch(removeItem(cartItem))}
+                >
                     &#10094;
                 </div>
-                <span className='value'>{quantity}</span>
-                <div className='arrow' 
-                    onClick={() => addItem(cartItem)}>
+                <span className="value">{quantity}</span>
+                <div
+                    className="arrow"
+                    onClick={() => dispatch(addItem(cartItem))}
+                >
                     &#10095;
                 </div>
             </span>
-            <span className='price'>{price}</span>
-            <div 
-                className='remove-button' 
-                onClick={() => clearItemFromCart(cartItem)}>&#10005;</div>
+            <span className="price">{price}</span>
+            <div
+                className="remove-button"
+                onClick={() => dispatch(clearItemFromCart(cartItem))}
+            >
+                &#10005;
+            </div>
         </div>
-    )
-}
+    );
+};
 
-const mapDispathToProps = dispatch => ({
-    addItem: item => dispatch(addItem(item)),
-    removeItem: item => dispatch(removeItem(item)),
-    clearItemFromCart: item => dispatch(clearItemFromCart(item))
-})
+CheckoutItem.propTypes = {
+    cartItem: PropTypes.object.isRequired,
+};
 
-export default connect(
-    null,
-    mapDispathToProps
-)(CheckoutItem);
+export default CheckoutItem;

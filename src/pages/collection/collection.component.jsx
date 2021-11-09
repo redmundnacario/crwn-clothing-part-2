@@ -10,13 +10,13 @@ import "./collection.component.scss";
 const CollectionPage = ({ match }) => {
     // console.log(match);
     const { collectionId } = useParams();
-    const { title, items } = useSelector(selectCollection(collectionId));
+    const collection = useSelector(selectCollection(collectionId));
     // console.log(items);
     return (
         <div className="collection-page">
-            <h1 className="title">{title}</h1>
+            <h1 className="title">{collection?.title}</h1>
             <div className="items">
-                {items.map((item) => (
+                {collection?.items.map((item) => (
                     <CollectionItem key={item.id} item={item} />
                 ))}
             </div>

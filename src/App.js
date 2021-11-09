@@ -14,9 +14,13 @@ import CheckoutPage from "./pages/checkout/checkout.component";
 
 import "./App.css";
 
+// import { addCollectionAndDocuments } from "./firebase/firebase.utils";
+// import { selectCollectionsForPreview } from "./redux/shop/shop.selectors";
+
 const App = () => {
     const dispatch = useDispatch();
     const currentUser = useSelector(selectCurrentUser);
+    // const collections = useSelector(selectCollectionsForPreview);
     // console.log(userAuth);
 
     useEffect(() => {
@@ -33,6 +37,10 @@ const App = () => {
                 });
             } else {
                 dispatch(setCurrentUser(userAuth));
+                // addCollectionAndDocuments(
+                //     "collections",
+                //     collections.map(({ title, items }) => ({ title, items }))
+                // );
             }
         });
 

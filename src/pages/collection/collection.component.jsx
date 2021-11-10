@@ -4,10 +4,7 @@ import { useParams } from "react-router";
 import CollectionItem from "../../components/collection-item/collection-item.component";
 
 // Selectors
-import {
-    selectCollection,
-    selectCollectionsIsLoaded,
-} from "../../redux/shop/shop.selectors";
+import { selectCollection } from "../../redux/shop/shop.selectors";
 // SCSS
 import "./collection.component.scss";
 

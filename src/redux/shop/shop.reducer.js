@@ -2,15 +2,26 @@
 import { shopActionsTypes } from "./shop.types";
 const INITIAL_STATE = {
     collections: null,
-    loading: true,
+    loading: false,
 };
 
 const shopReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case shopActionsTypes.GET_COLLECTIONS:
+        case shopActionsTypes.FETCH_COLLECTIONS_START:
             return {
                 ...state,
-                collections: { ...action.payload },
+                loading: true,
+            };
+        case shopActionsTypes.FETCH_COLLECTIONS_SUCCESS:
+            return {
+                ...state,
+                collections: action.payload,
+                loading: false,
+            };
+        case shopActionsTypes.FETCH_COLLECTIONS_FAIL:
+            return {
+                ...state,
+                error: action.payload,
                 loading: false,
             };
         default:

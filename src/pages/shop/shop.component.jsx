@@ -9,8 +9,11 @@ import WithSpinner from "../../components/common/spinner/spinner.component";
 import CollectionsOverview from "../../components/collections-overview/collections-overview.component";
 import CollectionPage from "../collection/collection.component";
 
-import { selectCollectionsForPreview } from "../../redux/shop/shop.selectors";
-import { getCollections } from "../../redux/shop/shop.actions";
+import {
+    selectCollectionsForPreview,
+    selectCollectionsIsLoading,
+} from "../../redux/shop/shop.selectors";
+import { fetchCollectionsAsync } from "../../redux/shop/shop.actions";
 
 const CollectionsOverviewWithSpinner = WithSpinner(CollectionsOverview);
 const CollectionPageWithSpinner = WithSpinner(CollectionPage);
@@ -18,10 +21,10 @@ const CollectionPageWithSpinner = WithSpinner(CollectionPage);
 const ShopPage = ({ match }) => {
     const dispatch = useDispatch();
     const collections = useSelector(selectCollectionsForPreview);
-    const loading = useSelector((state) => state.shop.loading);
+    const loading = useSelector(selectCollectionsIsLoading);
 
     useEffect(() => {
-        dispatch(getCollections());
+        dispatch(fetchCollectionsAsync());
     }, [dispatch]);
 
     console.log(collections);

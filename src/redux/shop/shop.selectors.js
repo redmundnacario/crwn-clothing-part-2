@@ -1,5 +1,6 @@
 import { createSelector } from "reselect";
 import memoize from "lodash.memoize";
+import { create } from "lodash";
 
 // input selector
 
@@ -23,4 +24,14 @@ export const selectCollectionsForPreview = createSelector(
         collections
             ? Object.keys(collections).map((key) => collections[key])
             : []
+);
+
+export const selectCollectionsIsLoading = createSelector(
+    [selectShop],
+    (shop) => shop.loading
+);
+
+export const selectCollectionsIsLoaded = createSelector(
+    [selectShop],
+    (shop) => !!shop
 );

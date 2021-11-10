@@ -7,10 +7,7 @@ import WithSpinner from "../../components/with-spinner/withSpinner.component";
 // components
 import Spinner from "../../components/spinner/spinner.component";
 
-import {
-    selectCollectionsForPreview,
-    selectCollectionsIsLoading,
-} from "../../redux/shop/shop.selectors";
+import { selectCollectionsIsLoading } from "../../redux/shop/shop.selectors";
 import { fetchCollectionsAsync } from "../../redux/shop/shop.actions";
 
 const CollectionsOverviewWithSpinner = WithSpinner(
@@ -26,14 +23,12 @@ const CollectionPageWithSpinner = WithSpinner(
 
 const ShopPage = ({ match }) => {
     const dispatch = useDispatch();
-    const collections = useSelector(selectCollectionsForPreview);
     const loading = useSelector(selectCollectionsIsLoading);
 
     useEffect(() => {
         dispatch(fetchCollectionsAsync());
     }, [dispatch]);
 
-    console.log(collections);
     return (
         <div className="shop-page">
             <Suspense fallback={<Spinner />}>

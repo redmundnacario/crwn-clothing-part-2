@@ -8,6 +8,7 @@ import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 
 import Header from "./components/header/header.component";
 import Spinner from "./components/spinner/spinner.component";
+import ErrorBoundary from "./components/error-boundary/error-boundary.component";
 
 import "./App.css";
 
@@ -52,22 +53,24 @@ const App = () => {
         <div className="App">
             <Header />
             <Switch>
-                <Suspense fallback={<Spinner />}>
-                    <Route exact path="/" component={HomePage} />
-                    <Route path="/shop" component={ShopPage} />
-                    <Route path="/checkout" component={CheckoutPage} />
-                    <Route
-                        exact
-                        path="/signin"
-                        render={() =>
-                            currentUser ? (
-                                <Redirect to="/" />
-                            ) : (
-                                <SignInAndSignUp />
-                            )
-                        }
-                    />
-                </Suspense>
+                <ErrorBoundary>
+                    <Suspense fallback={<Spinner />}>
+                        <Route exact path="/" component={HomePage} />
+                        <Route path="/shop" component={ShopPage} />
+                        <Route path="/checkout" component={CheckoutPage} />
+                        <Route
+                            exact
+                            path="/signin"
+                            render={() =>
+                                currentUser ? (
+                                    <Redirect to="/" />
+                                ) : (
+                                    <SignInAndSignUp />
+                                )
+                            }
+                        />
+                    </Suspense>
+                </ErrorBoundary>
             </Switch>
         </div>
     );

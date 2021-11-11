@@ -1,3 +1,5 @@
+import React from "react";
+
 import "./cart-item.component.scss";
 import PropTypes from "prop-types";
 
@@ -17,4 +19,4 @@ CartItem.propTypes = {
     item: PropTypes.object.isRequired,
 };
 
-export default CartItem;
+export default React.memo(CartItem);
